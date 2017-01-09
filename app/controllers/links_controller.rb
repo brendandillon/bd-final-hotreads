@@ -8,4 +8,13 @@ class LinksController < ApplicationController
       render json: link.errors.full_messages, status: 500
     end
   end
+
+  def index
+    @hot_links = Link.hot
+
+    respond_to do |format| 
+      format.json {render json: @hot_links}
+      format.html
+    end
+  end
 end

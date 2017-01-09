@@ -1,3 +1,4 @@
 Rails.application.routes.draw do
-  resources :links, only: [:create]
+  root to: "links#index"
+  resources :links, only: [:create, :index]
 end
