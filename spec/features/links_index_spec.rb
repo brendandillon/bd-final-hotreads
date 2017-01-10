@@ -27,4 +27,15 @@ RSpec.describe "Links index" do
       expect(page).to have_content('http://3.com')
     end
   end
+
+  it "only shows links from the last 24 hours" do
+    Timecop.freeze(Date.today - 2) do
+      Link.create(url: 'http://1.com', count: 1)
+    end
+    Link.create(url: 'http://2.com', count: 1)
+
+    visit '/'
+    expect(page).to have_content('http://2.com')
+    expect(page).not_to have_content('http://1.com')
+  end
 end
